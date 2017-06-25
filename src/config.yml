@@ -1,0 +1,5 @@
+host: host
+port: 3306
+database: minecraft_135706
+login: login
+password: login

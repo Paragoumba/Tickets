@@ -1,0 +1,5 @@
+name: Tickets
+version: 1.0
+main: fr.paragoumba.ticketseylrow.Tickets
+commands:
+  ticket:
