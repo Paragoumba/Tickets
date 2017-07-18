@@ -1,4 +1,4 @@
-package fr.paragoumba.ticketseylrow;
+package fr.paragoumba.tickets;
 
 import com.sun.istack.internal.Nullable;
 import org.bukkit.Location;

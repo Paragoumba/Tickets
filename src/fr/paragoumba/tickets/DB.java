@@ -1,4 +1,4 @@
-package fr.paragoumba.ticketseylrow;
+package fr.paragoumba.tickets;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.UUID;
 import java.util.logging.Level;
 
-import static fr.paragoumba.ticketseylrow.Tickets.plugin;
+import static fr.paragoumba.tickets.Tickets.plugin;
 
 /**
  * Created by Paragoumba on 13/06/2017.

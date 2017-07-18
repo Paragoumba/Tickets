@@ -1,4 +1,4 @@
-package fr.paragoumba.ticketseylrow;
+package fr.paragoumba.tickets;
 
 import org.bukkit.plugin.java.JavaPlugin;
 
