@@ -117,7 +117,7 @@ class DB {
 
         try(Statement state = connection.createStatement()){
 
-            state.executeUpdate("INSERT INTO Tickets VALUES (NULL, '" + player.getUniqueId() + "', '" + message + "', '" + loc.getWorld().getUID() + "," + loc.getX() + "," + loc.getY() + "," + loc.getZ() + "', NULL);");
+            state.executeUpdate("INSERT INTO Tickets VALUES (" + getLastID() + 1 + ", '" + player.getUniqueId() + "', '" + message + "', '" + loc.getWorld().getUID() + "," + loc.getX() + "," + loc.getY() + "," + loc.getZ() + "', NULL);");
 
         } catch (Exception e) {
 
@@ -136,6 +136,24 @@ class DB {
             e.printStackTrace();
 
         }
+    }
+
+    static int getLastID(){
+
+        try(Statement state = connection.createStatement();
+            ResultSet result = state.executeQuery("SELECT max(id) FROM Tickets")){
+
+            return result.getInt("id");
+
+        } catch (Exception e) {
+
+            System.out.println("Error in id getting");
+            e.printStackTrace();
+
+        }
+
+        return 0;
+
     }
 
     static void connect() {

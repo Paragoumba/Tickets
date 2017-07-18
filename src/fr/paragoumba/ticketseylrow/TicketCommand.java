@@ -25,41 +25,7 @@ public class TicketCommand implements CommandExecutor {
 
             if (strings.length > 0) {
 
-                if (strings[0].equalsIgnoreCase("modolist")) {
-
-                    ArrayList<Ticket> tickets = DB.getTickets();
-
-                    if (tickets != null) {
-
-                        player.sendMessage("Tickets:");
-
-                        for (Ticket ticket : tickets) {
-
-                            player.sendMessage("   -" + ChatColor.GOLD + (ticket.getPlayer() != null ? ticket.getPlayer().getDisplayName() : "NULL") + ChatColor.WHITE + " (#" + ticket.getID() + ") :");
-                            player.sendMessage("    " + (ticket.getMessage() != null ? ticket.getMessage() : "NULL"));
-
-                        }
-
-                    }
-
-                    return true;
-
-                } else if (strings[0].equalsIgnoreCase("adminreload")) {
-
-                    DB.disconnect();
-                    DB.connect();
-                    Bukkit.broadcastMessage(ChatColor.GOLD + "Tickets:" + ChatColor.WHITE + " Tickets reloaded.");
-
-                    return true;
-
-                } else if (strings[0].equalsIgnoreCase("adminreset")) {
-
-                    DB.reset();
-                    player.sendMessage("The database has been reset.");
-
-                    return true;
-
-                } else if (strings[0].equalsIgnoreCase("create")) {
+                if (strings[0].equalsIgnoreCase("create")) {
 
                     StringBuilder message = new StringBuilder();
 
@@ -75,68 +41,110 @@ public class TicketCommand implements CommandExecutor {
 
                     return true;
 
-                } else if (strings[0].equalsIgnoreCase("modo")) {
+                } else if (player.hasPermission("tickets.modo")) {
 
-                    try {
+                    if (strings[0].equalsIgnoreCase("list")) {
 
-                        int id = Integer.parseInt(strings[1]);
-                        Ticket ticket = DB.getTicket(id);
+                        ArrayList<Ticket> tickets = DB.getTickets();
 
-                        if (ticket != null) {
+                        if (tickets != null) {
 
-                            ticket.setHelper(player);
-                            player.sendMessage("Vous vous occupez désormais du ticket #" + id);
+                            player.sendMessage("Tickets:");
 
-                        }
+                            for (Ticket ticket : tickets) {
 
-                    } catch (Exception e) {
+                                player.sendMessage("   -" + ChatColor.GOLD + (ticket.getPlayer() != null ? ticket.getPlayer().getDisplayName() : "NULL") + ChatColor.WHITE + " (#" + ticket.getID() + ") :");
+                                player.sendMessage("    " + (ticket.getMessage() != null ? ticket.getMessage() : "NULL"));
 
-                        e.printStackTrace();
-                        player.sendMessage("Invalid id's number.");
-
-                    }
-
-                    return true;
-
-                } else if (strings[0].equalsIgnoreCase("modotp")) {
-
-                    try {
-
-                        int id = Integer.parseInt(strings[1]);
-                        Ticket ticket = DB.getTicket(id);
-
-                        if (ticket != null) {
-
-                            player.teleport(ticket.getLoc());
+                            }
 
                         }
 
-                    } catch (Exception e) {
+                        return true;
 
-                        e.printStackTrace();
-                        player.sendMessage("Invalid id's number.");
+                    }else if (strings[0].equalsIgnoreCase("take")) {
+
+                        try {
+
+                            int id = Integer.parseInt(strings[1]);
+                            Ticket ticket = DB.getTicket(id);
+
+                            if (ticket != null) {
+
+                                ticket.setHelper(player);
+                                player.sendMessage("Vous vous occupez désormais du ticket #" + id);
+
+                            }
+
+                        } catch (Exception e) {
+
+                            e.printStackTrace();
+                            player.sendMessage("Invalid id's number.");
+
+                        }
+
+                        return true;
+
+                    } else if (strings[0].equalsIgnoreCase("tp")) {
+
+                        try {
+
+                            int id = Integer.parseInt(strings[1]);
+                            Ticket ticket = DB.getTicket(id);
+
+                            if (ticket != null) {
+
+                                player.teleport(ticket.getLoc());
+
+                            }
+
+                        } catch (Exception e) {
+
+                            e.printStackTrace();
+                            player.sendMessage("Invalid id's number.");
+
+                        }
+
+                        return true;
+
+                    } else if (strings[0].equalsIgnoreCase("close")) {
+
+                        try {
+
+                            int id = Integer.parseInt(strings[1]);
+
+                            DB.removeTicket(id);
+                            player.sendMessage("Ticket #" + id + " résolu.");
+
+                        } catch (Exception e) {
+
+                            e.printStackTrace();
+                            player.sendMessage("Invalid id's number.");
+
+                        }
+
+                        return true;
+
+                    } else if (player.hasPermission("tickets.admin")){
+
+                         if (strings[0].equalsIgnoreCase("reload")) {
+
+                             DB.disconnect();
+                             DB.connect();
+                             Bukkit.broadcastMessage(ChatColor.GOLD + "Tickets:" + ChatColor.WHITE + " Tickets reloaded.");
+
+                             return true;
+
+                         } else if (strings[0].equalsIgnoreCase("reset")) {
+
+                             DB.reset();
+                             player.sendMessage("The database has been reset.");
+
+                             return true;
+
+                         }
 
                     }
-
-                    return true;
-
-                } else if (strings[0].equalsIgnoreCase("modoclose")) {
-
-                    try {
-
-                        int id = Integer.parseInt(strings[1]);
-
-                        DB.removeTicket(id);
-                        player.sendMessage("Ticket #" + id + " résolu.");
-
-                    } catch (Exception e) {
-
-                        e.printStackTrace();
-                        player.sendMessage("Invalid id's number.");
-
-                    }
-
-                    return true;
 
                 }
 
