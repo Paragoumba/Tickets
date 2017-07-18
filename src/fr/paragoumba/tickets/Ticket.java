@@ -32,5 +32,7 @@ class Ticket {
 
     Location getLoc(){return loc;}
 
+    boolean hasHelper(){return helper != null;}
+
     void setHelper(Player helper){this.helper = helper;}
 }

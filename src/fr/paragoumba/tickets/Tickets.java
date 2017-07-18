@@ -9,11 +9,11 @@ import java.io.File;
  */
 
 public class Tickets extends JavaPlugin {
-    public static Tickets plugin;
+
+    static Tickets plugin;
 
     @Override
     public void onEnable() {
-        super.onEnable();
 
         File config = new File(getDataFolder(), "config.yml");
 

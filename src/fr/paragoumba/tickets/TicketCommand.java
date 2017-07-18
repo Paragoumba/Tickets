@@ -52,8 +52,7 @@ public class TicketCommand implements CommandExecutor {
 
                             for (Ticket ticket : tickets) {
 
-                                player.sendMessage("   -" + ChatColor.GOLD + (ticket.getPlayer() != null ? ticket.getPlayer().getDisplayName() : "NULL") + ChatColor.WHITE + " (#" + ticket.getID() + ") :");
-                                player.sendMessage("    " + (ticket.getMessage() != null ? ticket.getMessage() : "NULL"));
+                                player.sendMessage("   - [" + (ticket.hasHelper() ? ChatColor.RED : ChatColor.GREEN) + ticket.getID() + ChatColor.RESET + "] " + (ticket.getPlayer() != null ? ticket.getPlayer().getDisplayName() : "NULL") + " : " + ticket.getMessage());
 
                             }
 
