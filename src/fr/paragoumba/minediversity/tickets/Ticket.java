@@ -1,4 +1,4 @@
-package fr.paragoumba.tickets;
+package fr.paragoumba.minediversity.tickets;
 
 import com.sun.istack.internal.Nullable;
 import org.bukkit.Location;
@@ -11,11 +11,13 @@ import org.bukkit.entity.Player;
 class Ticket {
 
     Ticket(int id, Player player, String message, Location loc, @Nullable Player helper){
+
         this.id = id;
         this.player = player;
         this.message = message;
         this.loc = loc;
         this.helper = helper;
+
     }
 
     private int id;
@@ -24,15 +26,45 @@ class Ticket {
     private Location loc;
     private Player helper;
 
-    int getID(){return id;}
+    int getID(){
 
-    Player getPlayer(){return player;}
+        return id;
 
-    String getMessage(){return message;}
+    }
 
-    Location getLoc(){return loc;}
+    Player getPlayer(){
 
-    boolean hasHelper(){return helper != null;}
+        return player;
 
-    void setHelper(Player helper){this.helper = helper;}
+    }
+
+    String getMessage(){
+
+        return message;
+
+    }
+
+    Location getLoc(){
+
+        return loc;
+
+    }
+
+    boolean hasHelper(){
+
+        return helper != null;
+
+    }
+
+    void setHelper(Player helper){
+
+        this.helper = helper;
+
+    }
+
+    Player getHelper(){
+
+        return helper;
+
+    }
 }

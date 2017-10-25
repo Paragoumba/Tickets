@@ -1,19 +1,7 @@
 name: Tickets
-version: 1.3.4.1
-main: fr.paragoumba.tickets.Tickets
+version: 2.19b27
+author: Paragoumba
+main: fr.paragoumba.minediversity.tickets.Tickets
 commands:
   ticket:
-    description: Command to manage help's tickets.
-    usage: '-§6[§f|§6]§f-------------------§6Ticket''Help§f-------------------§6[§f|§6]§f-
-
-            /ticket create [§6Raison§f] : Création d''un ticket.
-
-            /ticket list : Voir les tickets en cours.
-
-            /ticket take [§6ID§f] : Se positionner sur le ticket souhaité.
-
-            /ticket tp [§6ID§f] : Se TP aux positions du ticket en question.
-
-            /ticket close [§6ID§f] : Fermer un ticket.
-
-            -§6[§f|§6]§f-------------------§6Ticket''Help§f-------------------§6[§f|§6]§f-'
+    description: Command to create help's tickets.

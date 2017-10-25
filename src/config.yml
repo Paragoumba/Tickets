@@ -1,5 +1,8 @@
 host: host
 port: 3306
-database: minecraft_135706
+database: database
+table: Tickets
 login: login
-password: login
+password: password
+mainColor: GOLD
+errorColor: RED
