@@ -1,6 +1,5 @@
-package fr.paragoumba.minediversity.tickets;
+package fr.paragoumba.minediversity;
 
-import com.sun.istack.internal.Nullable;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
@@ -10,7 +9,7 @@ import org.bukkit.entity.Player;
 
 class Ticket {
 
-    Ticket(int id, Player player, String message, Location loc, @Nullable Player helper){
+    Ticket(int id, Player player, String message, Location loc, Player helper){
 
         this.id = id;
         this.player = player;

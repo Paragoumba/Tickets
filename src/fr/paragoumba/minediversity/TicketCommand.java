@@ -1,4 +1,4 @@
-package fr.paragoumba.minediversity.tickets;
+package fr.paragoumba.minediversity;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -9,8 +9,6 @@ import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 import java.util.UUID;
-
-import static fr.paragoumba.minediversity.tickets.Tickets.*;
 
 /**
  * Created by Paragoumba on 12/06/2017.
@@ -44,13 +42,13 @@ public class TicketCommand implements CommandExecutor {
 
                             Database.createTicket(player, message.toString(), player.getLocation());
                             player.sendMessage("Ticket envoyé.");
-                            Bukkit.broadcast("Un ticket a été créé par " + mainColor + player.getDisplayName() + ChatColor.RESET + ".", "tickets.modo");
+                            Bukkit.broadcast("Un ticket a été créé par " + Tickets.mainColor + player.getDisplayName() + ChatColor.RESET + ".", "tickets.modo");
 
                             return true;
 
                         }
 
-                        player.sendMessage(args.get(strings[0]));
+                        player.sendMessage(Tickets.args.get(strings[0]));
                         return true;
 
                     case "read":
@@ -151,7 +149,7 @@ public class TicketCommand implements CommandExecutor {
                             }
 
                             invalidId(player);
-                            player.sendMessage(args.get(strings[0]));
+                            player.sendMessage(Tickets.args.get(strings[0]));
                             return true;
 
                         }
@@ -185,7 +183,7 @@ public class TicketCommand implements CommandExecutor {
                             }
 
                             invalidId(player);
-                            player.sendMessage(args.get(strings[0]));
+                            player.sendMessage(Tickets.args.get(strings[0]));
                             return true;
                         }
 
@@ -218,7 +216,7 @@ public class TicketCommand implements CommandExecutor {
                             }
 
                             invalidId(player);
-                            player.sendMessage(args.get(strings[0]));
+                            player.sendMessage(Tickets.args.get(strings[0]));
                             return true;
                         }
 
@@ -236,7 +234,7 @@ public class TicketCommand implements CommandExecutor {
                                     int id = Integer.parseInt(strings[1]);
 
                                     Database.removeTicket(id);
-                                    player.sendMessage("Ticket #" + id + " " + ChatColor.GREEN + "résolu" + ChatColor.RESET + ".");
+                                    player.sendMessage("Ticket #" + id + ChatColor.GREEN + " résolu" + ChatColor.RESET + ".");
 
                                     return true;
 
@@ -248,7 +246,7 @@ public class TicketCommand implements CommandExecutor {
                             }
 
                             invalidId(player);
-                            player.sendMessage(args.get(strings[0]));
+                            player.sendMessage(Tickets.args.get(strings[0]));
                             return true;
                         }
 
@@ -259,8 +257,8 @@ public class TicketCommand implements CommandExecutor {
 
                         if (player.hasPermission("tickets.*")) {
 
-                            init();
-                            Bukkit.broadcast(mainColor + "Tickets:" + ChatColor.RESET + " Tickets reloaded.", "tickets.modo");
+                            Tickets.init();
+                            Bukkit.broadcast(Tickets.mainColor + "Tickets:" + ChatColor.RESET + " Tickets rechargés.", "tickets.modo");
 
                             return true;
 
@@ -274,7 +272,7 @@ public class TicketCommand implements CommandExecutor {
                         if (player.hasPermission("tickets.*")) {
 
                             Database.reset();
-                            player.sendMessage("The database has been reset.");
+                            player.sendMessage("La base de donnée a été réinitialisée.");
 
                             return true;
 
@@ -282,6 +280,7 @@ public class TicketCommand implements CommandExecutor {
 
                         accessError(player);
                         return true;
+
                 }
             }
 
@@ -297,28 +296,30 @@ public class TicketCommand implements CommandExecutor {
 
                 if (player.hasPermission("tickets.*")) {
 
-                    player.sendMessage("/ticket reload : Redémarrer du plugin.\n" +
+                    player.sendMessage("/ticket reload : Redémarrer le plugin.\n" +
                             "/ticket reset : Supprimer tous les tickets.");
                 }
             }
 
             player.sendMessage("-§6[§f|§6]§f-------------------§6Tickets' Help§f------------------§6[§f|§6]§f-");
             return true;
+
         }
 
-        commandSender.sendMessage("Only players can use this command. ¯\\_(ツ)_/¯");
+        commandSender.sendMessage("Seuls les joueurs peuvent utiliser cette commande. ¯\\_(ツ)_/¯");
         return true;
+
     }
 
     private void accessError(Player player){
 
-        player.sendMessage(errorColor + "Vous n'avez pas accès à cette commande.");
+        player.sendMessage(Tickets.errorColor + "Vous n'avez pas accès à cette commande.");
 
     }
 
     private void invalidId(Player player){
 
-        player.sendMessage(errorColor + "L'id entré est invalide.");
+        player.sendMessage(Tickets.errorColor + "L'id entré est invalide.");
 
     }
 }

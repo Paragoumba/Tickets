@@ -1,4 +1,4 @@
-package fr.paragoumba.minediversity.tickets;
+package fr.paragoumba.minediversity;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -23,7 +23,7 @@ public class Tickets extends JavaPlugin {
     @Override
     public void onEnable() {
 
-        Bukkit.getLogger().log(Level.WARNING, "Enabling Tickets.");
+        Bukkit.getLogger().log(Level.INFO, "Enabling Tickets.");
 
         plugin = this;
         File config = new File(getDataFolder(), "config.yml");
@@ -63,7 +63,7 @@ public class Tickets extends JavaPlugin {
 
     }
 
-    public static void init(){
+    static void init(){
 
         Configuration configuration = plugin.getConfig();
         mainColor = ChatColor.valueOf(configuration.getString("mainColor"));

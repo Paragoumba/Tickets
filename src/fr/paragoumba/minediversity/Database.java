@@ -1,4 +1,4 @@
-package fr.paragoumba.minediversity.tickets;
+package fr.paragoumba.minediversity;
 
 import com.mysql.jdbc.exceptions.jdbc4.MySQLSyntaxErrorException;
 import org.bukkit.Bukkit;
@@ -19,11 +19,7 @@ class Database {
 
     private Database(){}
 
-    private static String database;
-    private static String url;
-    private static String login;
-    private static String password;
-    private static String table;
+    private static String database, url, login, password, table;
 
     /**
      * Saves a Ticket
@@ -38,7 +34,7 @@ class Database {
         try(Connection connection = DriverManager.getConnection(url, login, password);
             Statement state = connection.createStatement()){
 
-            state.executeUpdate("INSERT INTO `" + table +"` VALUES (" + (getLastID() + 1) + ", '" + player.getUniqueId() + "', '" + player.getName() + "', '" + message + "', '" + loc.getWorld().getUID() + "," + loc.getX() + "," + loc.getY() + "," + loc.getZ() + "', NULL);");
+            state.executeUpdate("INSERT INTO `" + database + "`.`" + table  +"` VALUES (" + (getLastID() + 1) + ", '" + player.getUniqueId() + "', '" + player.getName() + "', '" + message + "', '" + loc.getWorld().getUID() + "," + loc.getX() + "," + loc.getY() + "," + loc.getZ() + "', NULL);");
 
         } catch (Exception e) {
 
@@ -51,7 +47,7 @@ class Database {
 
         try(Connection connection = DriverManager.getConnection(url, login, password);
             Statement state = connection.createStatement();
-            ResultSet result = state.executeQuery("SELECT * FROM `" + table + "`")){
+            ResultSet result = state.executeQuery("SELECT * FROM `" + database + "`.`" + table  + '`')){
 
             ArrayList<Ticket> tickets = new ArrayList<>();
 
@@ -80,7 +76,7 @@ class Database {
 
         try(Connection connection = DriverManager.getConnection(url, login, password);
             Statement state = connection.createStatement();
-            ResultSet result = state.executeQuery("SELECT * FROM `" + table + "` WHERE id = " + id)){
+            ResultSet result = state.executeQuery("SELECT * FROM `" + database + "`.`" + table  + "` WHERE id = " + id)){
 
             result.next();
             String[] coos = result.getString("location").split(",");
@@ -100,7 +96,7 @@ class Database {
         try(Connection connection = DriverManager.getConnection(url, login, password);
             Statement state = connection.createStatement()){
 
-            state.executeUpdate("DELETE FROM `" + table + "` WHERE id = " + id);
+            state.executeUpdate("DELETE FROM `" + database + "`.`" + table  + "` WHERE id = " + id);
 
         } catch (Exception e) {
 
@@ -109,11 +105,11 @@ class Database {
         }
     }
 
-    static int getLastID(){
+    private static int getLastID(){
 
         try(Connection connection = DriverManager.getConnection(url, login, password);
             Statement state = connection.createStatement();
-            ResultSet result = state.executeQuery("SELECT max(id) FROM `" + table + "`")){
+            ResultSet result = state.executeQuery("SELECT max(id) FROM `" + database + "`.`" + table  + '`')){
 
             int lastId = 0;
 
@@ -145,7 +141,7 @@ class Database {
 
         try(Connection connection = DriverManager.getConnection(url, login, password);
             Statement state = connection.createStatement();
-            ResultSet result = state.executeQuery("SELECT lastPseudo FROM `" + table + "` WHERE id = " + id)){
+            ResultSet result = state.executeQuery("SELECT lastPseudo FROM `" + database + "`.`" + table  + "` WHERE id = " + id)){
 
             String lastPseudo = "NULL";
 
@@ -180,7 +176,7 @@ class Database {
 
             String uniqueId = uuid != null ? '\'' + uuid.toString() + '\'' : null;
 
-            state.executeUpdate("UPDATE `" + table + "` SET helper=" + uniqueId + " WHERE id=" + id);
+            state.executeUpdate("UPDATE `" + database + "`.`" + table  + "` SET helper=" + uniqueId + " WHERE id=" + id);
 
             return true;
 
@@ -197,7 +193,7 @@ class Database {
 
         Configuration config = Tickets.plugin.getConfig();
         database = config.getString("database");
-        url = "jdbc:mysql://" + config.getString("host") + ":" + config.getString("port") + "/" + database;
+        url = "jdbc:mysql://" + config.getString("host") + ':' + config.getString("port") + '/' + database;
         login = config.getString("login");
         password = config.getString("password");
         table = config.getString("table");
@@ -206,12 +202,12 @@ class Database {
 
             try(Statement state = connection.createStatement()){
 
-                state.executeQuery("SELECT max(id) FROM `" + table + "`");
+                state.executeQuery("SELECT max(id) FROM `" + database + "`.`" + table  + '`');
 
             } catch (MySQLSyntaxErrorException e){
 
                 Statement state = connection.createStatement();
-                state.executeUpdate("CREATE TABLE " + database + ".`" + table + "` (" +
+                state.executeUpdate("CREATE TABLE " + database + ".`" + database + "`.`" + table  + "` (" +
                         "id SMALLINT(5)," +
                         "player TINYTEXT," +
                         "lastPseudo TINYTEXT," +
@@ -221,13 +217,14 @@ class Database {
                         ") ENGINE = INNODB");
 
                 state.close();
+
             }
 
-            Bukkit.getLogger().log(Level.FINE, "Tickets: Database works. (" + url + ")");
+            Bukkit.getLogger().log(Level.FINE, "Tickets: Database works. (" + url + ')');
 
         } catch (SQLException e) {
 
-            Bukkit.getLogger().log(Level.SEVERE, "Tickets: Error in database connection. (" + url + ")");
+            Bukkit.getLogger().log(Level.SEVERE, "Tickets: Error in database connection. (" + url + ')');
             e.printStackTrace();
 
         }
@@ -238,7 +235,7 @@ class Database {
         try(Connection connection = DriverManager.getConnection(url, login, password);
             Statement state = connection.createStatement()){
 
-            state.executeUpdate("DELETE FROM `" + table + "`");
+            state.executeUpdate("DELETE FROM `" + database + "`.`" + table  + '`');
 
         } catch (SQLException e) {
 
