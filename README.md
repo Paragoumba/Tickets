@@ -1,2 +1,2 @@
 # Tickets
-A spigot plugin that allows to create help's tickets.
+A Spigot plugin to manage Minecraft server MineDiversity's help tickets 
