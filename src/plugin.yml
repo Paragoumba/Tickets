@@ -1,7 +1,7 @@
 name: Tickets
-version: 2.19b27
+version: 2.20b28
 author: Paragoumba
-main: tickets.Tickets
+main: fr.paragoumba.minediversity.tickets.Tickets
 commands:
   ticket:
     description: Command to create help's tickets.

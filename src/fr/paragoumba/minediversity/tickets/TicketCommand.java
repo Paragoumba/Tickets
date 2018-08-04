@@ -1,4 +1,4 @@
-package fr.paragoumba.minediversity;
+package fr.paragoumba.minediversity.tickets;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;

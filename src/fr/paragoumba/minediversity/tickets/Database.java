@@ -1,4 +1,4 @@
-package fr.paragoumba.minediversity;
+package fr.paragoumba.minediversity.tickets;
 
 import com.mysql.jdbc.exceptions.jdbc4.MySQLSyntaxErrorException;
 import org.bukkit.Bukkit;
